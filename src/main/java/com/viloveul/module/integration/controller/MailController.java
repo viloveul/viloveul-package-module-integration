@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/mail")
+@RequestMapping(path = "${viloveul.controller.mail:/mail}")
 public class MailController {
 
     @Autowired

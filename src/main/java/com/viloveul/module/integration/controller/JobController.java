@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/job")
+@RequestMapping(path = "${viloveul.controller.job:/job}")
 public class JobController {
 
     @Autowired

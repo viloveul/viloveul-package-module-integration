@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/gate")
+@RequestMapping(path = "${viloveul.controller.gate:/gate}")
 public class GateController {
 
     @Autowired
