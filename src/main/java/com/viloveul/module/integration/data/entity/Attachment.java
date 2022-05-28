@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @Entity
 @NoArgsConstructor
 @Table(name = "tprefix_attachment", schema = "schema")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"mail"})
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Attachment extends AbstractEntity {
 

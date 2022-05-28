@@ -28,7 +28,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Table(name = "tprefix_mail", schema = "schema")
-@EqualsAndHashCode(callSuper = true, exclude = {"attachments"})
+@EqualsAndHashCode(callSuper = true, exclude = {"attachments", "recipients"})
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @AccessControl(resource = "MAIL")
 public class Mail extends AbstractMidEntity {

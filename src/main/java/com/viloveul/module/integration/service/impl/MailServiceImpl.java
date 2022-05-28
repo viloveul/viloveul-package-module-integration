@@ -1,7 +1,6 @@
 package com.viloveul.module.integration.service.impl;
 
 import com.viloveul.context.base.AbstractComponent;
-import com.viloveul.context.type.TargetType;
 import com.viloveul.context.util.misc.MediaStorage;
 import com.viloveul.module.integration.data.entity.Attachment;
 import com.viloveul.module.integration.data.entity.Mail;
@@ -84,14 +83,8 @@ public class MailServiceImpl extends AbstractComponent implements MailService {
         );
         Set<Recipient> recipients = new HashSet<>();
         Set<Attachment> attachments = new HashSet<>();
-        for (String email : form.getToArray()) {
-            recipients.add(new Recipient(mail, email, TargetType.TO));
-        }
-        for (String email : form.getCcArray()) {
-            recipients.add(new Recipient(mail, email, TargetType.CC));
-        }
-        for (String email : form.getBccArray()) {
-            recipients.add(new Recipient(mail, email, TargetType.BCC));
+        for (MailForm.Recipient recipient : form.getRecipients()) {
+            recipients.add(new Recipient(mail, recipient.getEmail(), recipient.getType()));
         }
         for (Map.Entry<String, InputStream> attachment : form.getAttachments().entrySet()) {
             attachments.add(

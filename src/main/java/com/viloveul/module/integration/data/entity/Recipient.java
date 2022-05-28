@@ -25,7 +25,7 @@ import javax.validation.Valid;
 @Entity
 @NoArgsConstructor
 @Table(name = "tprefix_recipient", schema = "schema")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"mail"})
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @AccessControl(resource = "RECIPIENT")
 public class Recipient extends AbstractEntity {
