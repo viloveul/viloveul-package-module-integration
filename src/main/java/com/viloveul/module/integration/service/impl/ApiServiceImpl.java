@@ -41,6 +41,7 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -85,8 +86,8 @@ public class ApiServiceImpl implements ApiService {
                     .populate(this.makeRequest(form)
                 );
         Api response = this.makeResponse(this.apiRepository.save(request));
-        if (ProcessType.ERROR == response.getProcess()) {
-            return this.objectMapper.convertValue(response.getResponseBody(), clzz);
+        if (ProcessType.SUCCESS == response.getProcess() && response.getResponseBody() != null) {
+            return this.objectMapper.readValue(response.getResponseBody(), clzz);
         }
         return null;
     }
@@ -194,7 +195,7 @@ public class ApiServiceImpl implements ApiService {
             );
             request.setProcess(ProcessType.SUCCESS);
             request.setResponseHeader(this.objectMapper.writeValueAsString(response.getHeaders()));
-            request.setResponseBody(this.objectMapper.writeValueAsString(response.getBody()));
+            request.setResponseBody(response.hasBody() ? new String(Objects.requireNonNull(response.getBody())) : null);
         } catch (RestClientException e) {
             LOGGER.warn(e.getMessage(), e.getCause());
             request.setProcess(ProcessType.ERROR);

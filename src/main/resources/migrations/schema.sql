@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS tbl_api (
 	response_body text NULL,
 	process varchar(10) NOT NULL,
 	duration double precision NULL,
-	populator varchar(255) NOT NULL,
+	populator varchar(255) NULL,
 	status bool NULL,
 	created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	created_by varchar(100) NULL,
@@ -142,3 +142,4 @@ CREATE TRIGGER audit_trail_trigger AFTER INSERT OR UPDATE OR DELETE ON tbl_api F
 
 DROP TRIGGER IF EXISTS audit_trail_trigger ON tbl_attachment;
 CREATE TRIGGER audit_trail_trigger AFTER INSERT OR UPDATE OR DELETE ON tbl_attachment FOR EACH ROW EXECUTE PROCEDURE audit_trail_setup('id');
+

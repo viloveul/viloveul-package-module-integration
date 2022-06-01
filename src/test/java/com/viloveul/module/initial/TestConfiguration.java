@@ -103,7 +103,7 @@ public class TestConfiguration {
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource());
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(new ClassPathResource("/migrations/postgres/01-schema-audit.sql"));
+        databasePopulator.addScript(new ClassPathResource("/migrations/audit.sql"));
         databasePopulator.addScript(new ClassPathResource("/migrations/schema.sql"));
         dataSourceInitializer.setDatabasePopulator(databasePopulator);
         dataSourceInitializer.setEnabled(true);

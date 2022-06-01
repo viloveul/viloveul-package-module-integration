@@ -5,7 +5,7 @@ import com.viloveul.context.type.AttemptType;
 import com.viloveul.context.type.ProcessType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.viloveul.context.auth.AccessControl;
@@ -33,9 +33,9 @@ import java.util.Date;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "tprefix_api", schema = "schema")
+@Table(name = "tbl_api", schema = "schema")
 @JsonSerialize
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @AccessControl(resource = "API")
 public class Api extends AbstractMidEntity {
 
@@ -83,9 +83,6 @@ public class Api extends AbstractMidEntity {
 
     @Column(name = "duration")
     private Double duration;
-
-    @Column(name = "executed_at")
-    private Date executedAt;
 
     @Column(name = "populator")
     private String populator;

@@ -3,7 +3,7 @@ package com.viloveul.module.integration.data.entity;
 import com.viloveul.context.base.AbstractEntity;
 import com.viloveul.context.type.TargetType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.viloveul.context.auth.AccessControl;
 import lombok.EqualsAndHashCode;
@@ -24,9 +24,9 @@ import javax.validation.Valid;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "tprefix_recipient", schema = "schema")
+@Table(name = "tbl_recipient", schema = "schema")
 @EqualsAndHashCode(callSuper = true, exclude = {"mail"})
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @AccessControl(resource = "RECIPIENT")
 public class Recipient extends AbstractEntity {
 
