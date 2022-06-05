@@ -5,6 +5,7 @@ import com.viloveul.context.behaviour.EntityNamingStrategy;
 import com.viloveul.context.behaviour.EntityEventInterceptor;
 import com.viloveul.context.ApplicationContainer;
 import org.hibernate.EmptyInterceptor;
+import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -103,8 +104,8 @@ public class TestConfiguration {
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource());
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(new ClassPathResource("/migrations/audit.sql"));
-        databasePopulator.addScript(new ClassPathResource("/migrations/schema.sql"));
+        databasePopulator.addScript(new ClassPathResource("/migrations/V1_0_0__00000ALLSCHAUD.sql"));
+        databasePopulator.addScript(new ClassPathResource("/migrations/V1_0_0__00100ALLSCHINT.sql"));
         dataSourceInitializer.setDatabasePopulator(databasePopulator);
         dataSourceInitializer.setEnabled(true);
         return dataSourceInitializer;
@@ -113,16 +114,14 @@ public class TestConfiguration {
     @Bean
     public Properties jpaProperties(ApplicationEventPublisher publisher) {
         Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.dialect", environment.getRequiredProperty("datasource.dialect", String.class));
-        jpaProperties.put("hibernate.ddl-auto", environment.getProperty("datasource.ddl-auto", String.class, "none"));
-        jpaProperties.put("hibernate.hbm2ddl.auto", environment.getProperty("datasource.ddl-auto", String.class, "none"));
-        jpaProperties.put("hibernate.show_sql", environment.getProperty("datasource.show_sql", Boolean.class, true));
-        jpaProperties.put("hibernate.globally_quoted_identifiers", environment.getProperty("datasource.quoted_identifiers", Boolean.class, false));
-        jpaProperties.put("hibernate.enable_lazy_load_no_trans", environment.getProperty("datasource.enable_lazy_load_no_trans", Boolean.class, true));
-        jpaProperties.put("hibernate.jdbc.lob.non_contextual_creation", environment.getProperty("datasource.lob.non_contextual_creation", Boolean.class, false));
-        jpaProperties.put("hibernate.temp.use_jdbc_metadata_defaults", environment.getProperty("datasource.use_jdbc_metadata_defaults", Boolean.class, false));
-        jpaProperties.put("hibernate.physical_naming_strategy", EntityNamingStrategy.class);
-        jpaProperties.put("hibernate.session_factory.interceptor", new EntityEventInterceptor(publisher, EmptyInterceptor.INSTANCE));
+        jpaProperties.put(AvailableSettings.DIALECT, environment.getRequiredProperty("datasource.dialect", String.class));
+        jpaProperties.put(AvailableSettings.HBM2DDL_AUTO, environment.getProperty("datasource.ddl-auto", String.class, "none"));
+        jpaProperties.put(AvailableSettings.SHOW_SQL, environment.getProperty("datasource.show_sql", Boolean.class, true));
+        jpaProperties.put(AvailableSettings.GLOBALLY_QUOTED_IDENTIFIERS, environment.getProperty("datasource.quoted_identifiers", Boolean.class, false));
+        jpaProperties.put(AvailableSettings.ENABLE_LAZY_LOAD_NO_TRANS, environment.getProperty("datasource.enable_lazy_load_no_trans", Boolean.class, true));
+        jpaProperties.put(AvailableSettings.NON_CONTEXTUAL_LOB_CREATION, environment.getProperty("datasource.lob.non_contextual_creation", Boolean.class, false));
+        jpaProperties.put(AvailableSettings.PHYSICAL_NAMING_STRATEGY, EntityNamingStrategy.class);
+        jpaProperties.put(AvailableSettings.INTERCEPTOR, new EntityEventInterceptor(publisher, EmptyInterceptor.INSTANCE));
         return jpaProperties;
     }
 
