@@ -104,8 +104,8 @@ public class TestConfiguration {
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource());
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(new ClassPathResource("/migrations/V1_0_0__00000ALLSCHAUD.sql"));
-        databasePopulator.addScript(new ClassPathResource("/migrations/V1_0_0__00100ALLSCHINT.sql"));
+        databasePopulator.addScript(new ClassPathResource("/migrations/beforeMigrate.sql"));
+        databasePopulator.addScript(new ClassPathResource("/migrations/R__00100ALLSCHINT.sql"));
         dataSourceInitializer.setDatabasePopulator(databasePopulator);
         dataSourceInitializer.setEnabled(true);
         return dataSourceInitializer;
